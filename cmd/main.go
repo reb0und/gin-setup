@@ -1,16 +1,12 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"rebound.sh/gin-setup/internal/controllers"
 	"rebound.sh/gin-setup/internal/middleware"
 )
 
-type SampleData struct {
-	Foo string `json:"foo"`
-	Bar string `json:"bar"`
-}
+
 
 func main() {
 	router := gin.Default()
@@ -22,9 +18,7 @@ func main() {
 	// Retrieves (would be) needed data/environment
 	router.Use(middleware.SetEnv())
 
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, SampleData{Foo: "f", Bar: "b"})
-	})
+	router.GET("/", controllers.RootController)
 
 	router.Handler()	
 
